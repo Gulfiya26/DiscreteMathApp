@@ -1,0 +1,261 @@
+﻿<UserControl x:Class="TipaDiplom.Views.AddTestView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Список вопросов -->
+        <Grid Grid.Column="0" Margin="0,0,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="✏️ Вопросы тестов"
+                       FontSize="20" FontWeight="Bold"
+                       Foreground="#CBA6F7" Margin="0,0,0,10"/>
+
+            <ListBox x:Name="QuestionList" Grid.Row="1"
+                     Background="#313244" Foreground="#CDD6F4"
+                     BorderThickness="0"
+                     SelectionChanged="QuestionList_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5,3">
+                            <TextBlock Text="{Binding Category}"
+                                       FontSize="10" Foreground="#CBA6F7"
+                                       FontWeight="SemiBold"/>
+                            <TextBlock Text="{Binding QuestionText}"
+                                       FontSize="12" Foreground="#CDD6F4"
+                                       TextTrimming="CharacterEllipsis"
+                                       MaxWidth="260"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Padding" Value="5"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#45475A"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,8,0,0">
+                <Button Content="➕ Новый" Padding="12,6"
+                        Background="#A6E3A1" Foreground="#1E1E2E"
+                        BorderThickness="0" Cursor="Hand"
+                        FontWeight="SemiBold" Margin="0,0,5,0"
+                        Click="NewQuestion_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button Content="🗑️ Удалить" Padding="12,6"
+                        Background="#F38BA8" Foreground="#1E1E2E"
+                        BorderThickness="0" Cursor="Hand"
+                        FontWeight="SemiBold"
+                        Click="DeleteQuestion_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Форма добавления вопроса -->
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="📝 Редактор вопроса" FontSize="20"
+                           FontWeight="Bold" Foreground="#CBA6F7"
+                           Margin="0,0,0,15"/>
+
+                <!-- Категория -->
+                <TextBlock Text="Раздел:" Foreground="#CDD6F4"
+                           FontSize="13" Margin="0,0,0,5"/>
+                <ComboBox x:Name="QCategoryBox" Padding="8,6" FontSize="14"
+                          Background="#313244" Foreground="#CDD6F4"
+                          BorderBrush="#45475A" Margin="0,0,0,10">
+                    <ComboBoxItem Content="Теория множеств"/>
+                    <ComboBoxItem Content="Булева алгебра"/>
+                    <ComboBoxItem Content="Теория графов"/>
+                    <ComboBoxItem Content="Комбинаторика"/>
+                    <ComboBoxItem Content="Системы счисления"/>
+                    <ComboBoxItem Content="Матрицы и отношения"/>
+                </ComboBox>
+
+                <!-- Текст вопроса -->
+                <TextBlock Text="Текст вопроса:" Foreground="#CDD6F4"
+                           FontSize="13" Margin="0,0,0,5"/>
+                <TextBox x:Name="QuestionTextBox" Padding="8,6" FontSize="13"
+                         Background="#313244" Foreground="#CDD6F4"
+                         BorderBrush="#45475A" BorderThickness="1"
+                         AcceptsReturn="True" Height="70"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         Margin="0,0,0,10"/>
+
+                <!-- Варианты ответов -->
+                <TextBlock Text="Варианты ответов:" Foreground="#CDD6F4"
+                           FontSize="13" FontWeight="SemiBold"
+                           Margin="0,0,0,8"/>
+
+                <!-- Вариант A -->
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="#89B4FA"
+                            CornerRadius="4" Padding="8,4" Margin="0,0,8,0">
+                        <TextBlock Text="A" Foreground="#1E1E2E"
+                                   FontWeight="Bold"/>
+                    </Border>
+                    <TextBox x:Name="OptionABox" Grid.Column="1"
+                             Padding="8,6" FontSize="13"
+                             Background="#313244" Foreground="#CDD6F4"
+                             BorderBrush="#45475A" BorderThickness="1"/>
+                    <RadioButton x:Name="CorrectA" Grid.Column="2"
+                                 Content="✓" Foreground="#A6E3A1"
+                                 Margin="8,0,0,0" GroupName="Correct"
+                                 FontSize="16" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Вариант B -->
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="#A6E3A1"
+                            CornerRadius="4" Padding="8,4" Margin="0,0,8,0">
+                        <TextBlock Text="B" Foreground="#1E1E2E"
+                                   FontWeight="Bold"/>
+                    </Border>
+                    <TextBox x:Name="OptionBBox" Grid.Column="1"
+                             Padding="8,6" FontSize="13"
+                             Background="#313244" Foreground="#CDD6F4"
+                             BorderBrush="#45475A" BorderThickness="1"/>
+                    <RadioButton x:Name="CorrectB" Grid.Column="2"
+                                 Content="✓" Foreground="#A6E3A1"
+                                 Margin="8,0,0,0" GroupName="Correct"
+                                 FontSize="16" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Вариант C -->
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="#F9E2AF"
+                            CornerRadius="4" Padding="8,4" Margin="0,0,8,0">
+                        <TextBlock Text="C" Foreground="#1E1E2E"
+                                   FontWeight="Bold"/>
+                    </Border>
+                    <TextBox x:Name="OptionCBox" Grid.Column="1"
+                             Padding="8,6" FontSize="13"
+                             Background="#313244" Foreground="#CDD6F4"
+                             BorderBrush="#45475A" BorderThickness="1"/>
+                    <RadioButton x:Name="CorrectC" Grid.Column="2"
+                                 Content="✓" Foreground="#A6E3A1"
+                                 Margin="8,0,0,0" GroupName="Correct"
+                                 FontSize="16" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Вариант D -->
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="#F38BA8"
+                            CornerRadius="4" Padding="8,4" Margin="0,0,8,0">
+                        <TextBlock Text="D" Foreground="#1E1E2E"
+                                   FontWeight="Bold"/>
+                    </Border>
+                    <TextBox x:Name="OptionDBox" Grid.Column="1"
+                             Padding="8,6" FontSize="13"
+                             Background="#313244" Foreground="#CDD6F4"
+                             BorderBrush="#45475A" BorderThickness="1"/>
+                    <RadioButton x:Name="CorrectD" Grid.Column="2"
+                                 Content="✓" Foreground="#A6E3A1"
+                                 Margin="8,0,0,0" GroupName="Correct"
+                                 FontSize="16" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Сложность -->
+                <TextBlock Text="Сложность:" Foreground="#CDD6F4"
+                           FontSize="13" Margin="0,0,0,5"/>
+                <ComboBox x:Name="DifficultyBox" Padding="8,6"
+                          Background="#313244" Foreground="#CDD6F4"
+                          BorderBrush="#45475A" Margin="0,0,0,10">
+                    <ComboBoxItem Content="⭐ Лёгкий" Tag="1" IsSelected="True"/>
+                    <ComboBoxItem Content="⭐⭐ Средний" Tag="2"/>
+                    <ComboBoxItem Content="⭐⭐⭐ Сложный" Tag="3"/>
+                </ComboBox>
+
+                <!-- Объяснение -->
+                <TextBlock Text="Объяснение правильного ответа:"
+                           Foreground="#CDD6F4" FontSize="13"
+                           Margin="0,0,0,5"/>
+                <TextBox x:Name="ExplanationBox" Padding="8,6" FontSize="13"
+                         Background="#313244" Foreground="#CDD6F4"
+                         BorderBrush="#45475A" BorderThickness="1"
+                         AcceptsReturn="True" Height="80"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         Margin="0,0,0,10"/>
+
+                <!-- Статус -->
+                <TextBlock x:Name="QStatusText" Text="" FontSize="13"
+                           TextWrapping="Wrap" Margin="0,0,0,8"/>
+
+                <!-- Кнопки -->
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="💾 Сохранить вопрос"
+                            Padding="20,10" Background="#CBA6F7"
+                            Foreground="#1E1E2E" BorderThickness="0"
+                            Cursor="Hand" FontSize="14"
+                            FontWeight="SemiBold" Margin="0,0,10,0"
+                            Click="SaveQuestion_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="8"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Content="🔄 Очистить"
+                            Padding="20,10" Background="#45475A"
+                            Foreground="#CDD6F4" BorderThickness="0"
+                            Cursor="Hand" FontSize="14"
+                            FontWeight="SemiBold"
+                            Click="ClearQuestion_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="8"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

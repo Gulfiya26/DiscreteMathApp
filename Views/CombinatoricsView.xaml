@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="TipaDiplom.Views.CombinatoricsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#313244"/>
+            <Setter Property="Foreground" Value="#CDD6F4"/>
+            <Setter Property="BorderBrush" Value="#45475A"/>
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="5,0"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#F38BA8"/>
+            <Setter Property="Foreground" Value="#1E1E2E"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+            <TextBlock Text="🎲 Комбинаторика" FontSize="24" FontWeight="Bold" 
+                       Foreground="#F38BA8" Margin="0,0,0,15"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="n =" Foreground="#CDD6F4" FontSize="14" 
+                           VerticalAlignment="Center"/>
+                <TextBox x:Name="NInput" Text="5"/>
+                <TextBlock Text="k =" Foreground="#CDD6F4" FontSize="14" 
+                           VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBox x:Name="KInput" Text="3"/>
+            </StackPanel>
+
+            <WrapPanel Margin="0,10">
+                <Button Content="n!" Click="Factorial_Click"/>
+                <Button Content="P(n) Перестановки" Click="Permutations_Click"/>
+                <Button Content="A(n,k) Размещения" Click="Arrangements_Click"/>
+                <Button Content="C(n,k) Сочетания" Click="Combinations_Click"/>
+                <Button Content="Ā(n,k) Разм. с повт." Click="ArrangementsRep_Click"/>
+                <Button Content="C̄(n,k) Соч. с повт." Click="CombinationsRep_Click"/>
+                <Button Content="Числа Фибоначчи" Click="Fibonacci_Click"/>
+                <Button Content="Числа Каталана" Click="Catalan_Click"/>
+                <Button Content="Числа Белла" Click="Bell_Click"/>
+                <Button Content="Стирлинг S(n,k)" Click="Stirling_Click"/>
+                <Button Content="Треугольник Паскаля" Click="Pascal_Click"/>
+                <Button Content="Все перестановки" Click="AllPermutations_Click"/>
+                <Button Content="Полный расчёт" Click="FullCalc_Click" 
+                        Background="#A6E3A1"/>
+            </WrapPanel>
+
+            <Border Background="#313244" CornerRadius="8" Padding="15" Margin="0,10,0,0">
+                <TextBlock x:Name="ResultText" Text="Результат появится здесь..." 
+                           Foreground="#A6E3A1" FontSize="14" TextWrapping="Wrap"
+                           FontFamily="Consolas"/>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
